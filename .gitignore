@@ -1,0 +1,57 @@
+# Environment & Secret Configurations
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.secrets
+
+# Build directories
+build/
+bin/
+lib/
+out/
+_deps/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.ninja
+*.ninja_deps
+*.ninja_log
+compile_commands.json
+
+# Visual Studio & VS Code
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/
+CMakeUserPresets.json
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# Compiled binaries and libraries
+*.obj
+*.o
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.a
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
