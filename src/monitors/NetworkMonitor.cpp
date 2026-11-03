@@ -9,6 +9,12 @@
 #include <iostream>
 
 #ifdef _WIN32
+#ifndef WINVER
+#define WINVER 0x0A00
+#endif
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0A00
+#endif
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -21,8 +27,10 @@
 #include <iphlpapi.h>
 #include <netioapi.h>
 
+#ifdef _MSC_VER
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "ws2_32.lib")
+#endif
 #endif
 
 namespace SystemPulse::Monitors {

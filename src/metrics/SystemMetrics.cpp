@@ -7,20 +7,30 @@
 #include <cmath>
 
 #ifdef _WIN32
+#ifndef WINVER
+#define WINVER 0x0A00
+#endif
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0A00
+#endif
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 #ifndef NOMINMAX
-#define NOMINMAX
+#define NOMINMAX 1
 #endif
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <windows.h>
 #include <pdh.h>
 #include <pdhmsg.h>
 #include <iphlpapi.h>
 #include <netioapi.h>
 
+#ifdef _MSC_VER
 #pragma comment(lib, "pdh.lib")
 #pragma comment(lib, "iphlpapi.lib")
+#endif
 
 static inline uint64_t FileTimeToUInt64(const FILETIME& ft) {
     return (static_cast<uint64_t>(ft.dwHighDateTime) << 32) | ft.dwLowDateTime;

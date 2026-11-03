@@ -29,6 +29,7 @@ find_package(OpenGL REQUIRED)
 # Dependency Management via FetchContent
 # ---------------------------------------------------------------------------
 include(FetchContent)
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE BOOL "Don't check git updates for existing dependencies" FORCE)
 
 # 1. GLFW (v3.4)
 message(STATUS "Fetching GLFW 3.4...")
@@ -42,6 +43,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/glfw/glfw.git
     GIT_TAG        3.4
     GIT_SHALLOW    TRUE
+    UPDATE_COMMAND ""
 )
 FetchContent_MakeAvailable(glfw)
 
@@ -52,6 +54,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/ocornut/imgui.git
     GIT_TAG        docking
     GIT_SHALLOW    TRUE
+    UPDATE_COMMAND ""
 )
 
 FetchContent_GetProperties(imgui)
@@ -156,12 +159,17 @@ endif()
 # Note: NVIDIA NVML (nvml.dll) is dynamically loaded via LoadLibraryA at runtime,
 # ensuring zero SDK installation requirement and full portability across MinGW/UCRT64 & MSVC.
 if(WIN32)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        _WIN32_WINNT=0x0A00
+        WINVER=0x0A00
+    )
     target_link_libraries(${PROJECT_NAME} PRIVATE
         dwmapi    # Windows Desktop Window Manager (immersive dark mode)
         pdh       # Performance Data Helper (CPU counters)
         iphlpapi  # IP Helper API (Network adapter throughput)
         dxgi      # DirectX Graphics Infrastructure (GPU details fallback)
         psapi     # Process Status API
+        ws2_32    # Windows Sockets API
     )
 endif()
 
